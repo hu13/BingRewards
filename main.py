@@ -54,7 +54,7 @@ def earnRewards(config, httpHeaders, userAgents, reportItem, password):
         bingRewards = BingRewards(httpHeaders, userAgents, config)
         bingAuth    = BingAuth(httpHeaders, bingRewards.opener)
         bingAuth.authenticate(reportItem.accountType, reportItem.accountLogin, password)
-        reportItem.oldPoints = bingRewards.getRewardsPoints()
+        # reportItem.oldPoints = bingRewards.getRewardsPoints()
         rewards = bdp.parseDashboardPage(bingRewards.getDashboardPage(), bingCommon.ACCOUNT_URL)
 
         if verbose:
@@ -71,12 +71,12 @@ def earnRewards(config, httpHeaders, userAgents, reportItem, password):
 
         reportItem.newPoints = bingRewards.getRewardsPoints()
         reportItem.lifetimeCredits = bingRewards.getLifetimeCredits()
-        reportItem.pointsEarned = reportItem.newPoints - reportItem.oldPoints
+        # reportItem.pointsEarned = reportItem.newPoints - reportItem.oldPoints
         reportItem.pointsEarnedRetrying += reportItem.pointsEarned
         print
         print "%s - %s" % (reportItem.accountType, reportItem.accountLogin)
         print
-        print "Points before:    %6d" % reportItem.oldPoints
+        # print "Points before:    %6d" % reportItem.oldPoints
         print "Points after:     %6d" % reportItem.newPoints
         print "Points earned:    %6d" % reportItem.pointsEarned
         print "Lifetime Credits: %6d" % reportItem.lifetimeCredits
@@ -256,7 +256,7 @@ if __name__ == "__main__":
 
     configFile = ""
     configFileName = None
-  
+
     showFullReport = False
     for o, a in opts:
         if o in ("-h", "--help"):
@@ -275,10 +275,10 @@ if __name__ == "__main__":
         else:
             raise NotImplementedError("option '" + o + "' is not implemented")
 
-    #if no config file was specified as an option use the default 
-    if configFileName is None : 
+    #if no config file was specified as an option use the default
+    if configFileName is None :
         configFileName = "config.xml"
-    
+
     #if the file doesn't exist, look for it relative to the working and current dirs
     if not os.path.isfile(configFile):
         configFile = os.path.join(os.path.dirname(os.path.realpath(__file__)), configFileName)
